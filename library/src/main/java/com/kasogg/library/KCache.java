@@ -42,18 +42,15 @@ public class KCache {
     private DiskLruCache diskLruCache;
     private LruCache<String, CacheEntity> memoryLruCache;
     private int appVersion;
-    private File cacheDir;
 
     public KCache(Context context, int appVersion, long maxSize) {
         this.appVersion = appVersion;
-        this.cacheDir = CacheUtils.getCacheChildDir(context, CACHE_DIR_NAME);
-        initDiskLruCache(cacheDir, maxSize);
+        initDiskLruCache(CacheUtils.getCacheChildDir(context, CACHE_DIR_NAME), maxSize);
         initMemoryLruCache();
     }
 
     public KCache(File dir, int appVersion, long maxSize) {
         this.appVersion = appVersion;
-        this.cacheDir = dir;
         initDiskLruCache(dir, maxSize);
         initMemoryLruCache();
     }
@@ -190,9 +187,10 @@ public class KCache {
     }
 
     public synchronized void remove(String key) {
-        memoryLruCache.remove(key);
+        String hashedKey = CacheUtils.hashKey(key);
+        memoryLruCache.remove(hashedKey);
         try {
-            diskLruCache.remove(key);
+            diskLruCache.remove(hashedKey);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -201,6 +199,7 @@ public class KCache {
     public synchronized void clear() {
         memoryLruCache.evictAll();
         File dir = diskLruCache.getDirectory();
+        CacheUtils.clearByPath(dir);
         long maxSize = diskLruCache.maxSize();
         try {
             diskLruCache.delete();
@@ -211,7 +210,7 @@ public class KCache {
     }
 
     public long size() {
-        return CacheUtils.getSizeByPath(cacheDir);
+        return CacheUtils.getSizeByPath(diskLruCache.getDirectory());
     }
 
     static class CacheEntity implements Serializable {

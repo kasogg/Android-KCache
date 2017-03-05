@@ -17,5 +17,7 @@ public class MainActivity extends Activity {
         String key = "key";
         kCache.put(key, "value");
         Log.i("Result from cache", kCache.getAsString(key)); //"value"
+        kCache.remove(key);
+        Log.i("Result from cache", kCache.getAsString(key) + "");
     }
 }
