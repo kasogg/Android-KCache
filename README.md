@@ -1,6 +1,6 @@
 # KCache
 
-KCache是一个轻量级缓存，内部采用LruCache，实现了MemroyLruCache和DiskLruCache，提高了缓存获取速度，简单易用。
+KCache是一个轻量级缓存框架，内设二级缓存，采用MemroyLruCache和DiskLruCache实现，轻便简单易用。
 
 ## 特性
 * 支持String、Serializable、Bitmap、byte[]写入和读取操作
