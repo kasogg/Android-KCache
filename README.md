@@ -1,10 +1,9 @@
 # KCache
 
-KCache是一个轻量级缓存，内部采用LruCache，实现了MemroyLruCache和DiskLruCache，提高缓存获取效率，支持自定义缓存路径。
+KCache是一个轻量级缓存，内部采用LruCache，实现了MemroyLruCache和DiskLruCache，提高缓存获取效率，支持自定义缓存路径，简单易用。
 
 ## 用法
 
-### 获取缓存
 ```java
 KCache kCache = new KCache(context, appVersion, MAX_SIZE); // 可自定义appVersion，改变后Disk缓存失效
 KCache kCache = new KCache(cacheDir, appVersion, MAX_SIZE); // 可自定义缓存目录
@@ -19,4 +18,4 @@ kCache.remove("key"); // 移除指定key
 kCache.clear(); // 清除缓存
 ```
 
-KCache支持String、Serializable、Bitmap、byte[]写入和读取操作。
+KCache支持String、Serializable、Bitmap、byte[]写入和读取操作，更多用法请参考Demo。
