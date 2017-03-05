@@ -22,4 +22,4 @@ kCache.remove("key"); // 移除指定key
 kCache.clear(); // 清除缓存
 ```
 
-KCache，更多用法请参考Demo。
+更多用法请参考Demo。
